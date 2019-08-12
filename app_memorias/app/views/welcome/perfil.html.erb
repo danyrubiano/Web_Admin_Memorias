@@ -1,0 +1,203 @@
+<div class="container">
+  <div class="jumbotron">
+    <!--p id="notice"><%= notice %></p-->
+    
+    <h3>Mis Datos</h3>
+    <br>
+
+    <% if alumno_signed_in? %>
+      <% @alumnos.each do |alumno| %>
+        <% if current_alumno.id == alumno.id %>
+          <p>
+            <span style="font-size:14px">
+              <strong>Nombre: </strong>
+              <%= alumno.nombre %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Apellido: </strong>
+              <%= alumno.apellido %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Rut Alumno: </strong>
+              <%= alumno.rut %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Email:</strong>
+              <%= alumno.email %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Telefono:</strong>
+              <%= alumno.telefono %>
+            </span>
+          </p>
+          <br>
+          <%= link_to 'Editar Datos', edit_alumno_registration_path, :class => "btn btn-default btn-xs" %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% if coordinador_signed_in? %>
+      <% @coordinadors.each do |coordinador| %>
+        <% if current_coordinador.id == coordinador.id %>
+          <p>
+            <span style="font-size:14px">
+              <strong>Nombre: </strong>
+              <%= coordinador.nombre %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Apellido: </strong>
+              <%= coordinador.apellido %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Rut Coordinador: </strong>
+              <%= coordinador.rut %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Email:</strong>
+              <%= coordinador.email %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Telefono:</strong>
+              <%= coordinador.telefono %>
+            </span>
+          </p>
+          <br>
+          <%= link_to 'Editar Datos', edit_coordinador_registration_path, :class => "btn btn-default btn-xs" %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% if administrador_signed_in? %>
+      <% @administradors.each do |administrador| %>
+        <% if current_administrador.id == administrador.id %>
+          <p>
+            <span style="font-size:14px">
+              <strong>Nombre: </strong>
+              <%= administrador.nombre %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Apellido: </strong>
+              <%= administrador.apellido %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Rut Administrador: </strong>
+              <%= administrador.rut %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Email:</strong>
+              <%= administrador.email %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Telefono:</strong>
+              <%= administrador.telefono %>
+            </span>
+          </p>
+          <br>
+          <%= link_to 'Editar Datos', edit_administrador_registration_path, :class => "btn btn-default btn-xs" %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% if comision_signed_in? %>
+      <% @comisions.each do |comision| %>
+        <% if current_comision.id == comision.id %>
+          <p>
+            <span style="font-size:14px">
+              <strong>Nombre: </strong>
+              <%= comision.nombre %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Apellido: </strong>
+              <%= comision.apellido %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Rut Comisión: </strong>
+              <%= comision.rut %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Email:</strong>
+              <%= comision.email %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Telefono:</strong>
+              <%= comision.telefono %>
+            </span>
+          </p>
+          <br>
+          <%= link_to 'Editar Datos', edit_comision_registration_path, :class => "btn btn-default btn-xs" %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% if teacher_signed_in? %>
+      <% @teachers.each do |teacher| %>
+        <% if current_teacher.id == teacher.id %>
+          <p>
+            <span style="font-size:14px">
+              <strong>Nombre: </strong>
+              <%= teacher.nombre %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Apellido: </strong>
+              <%= teacher.apellido %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Rut teacher: </strong>
+              <%= teacher.rut %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Email:</strong>
+              <%= teacher.email %>
+            </span>
+          </p>
+          <p>
+            <span style="font-size:14px">
+              <strong>Telefono:</strong>
+              <%= teacher.telefono %>
+            </span>
+          </p>
+          <br>
+          <%= link_to 'Editar Datos', edit_teacher_registration_path, :class => "btn btn-default btn-xs" %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

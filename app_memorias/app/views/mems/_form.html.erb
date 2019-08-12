@@ -1,0 +1,80 @@
+<%= form_for(@mem) do |f| %>
+  <% if @mem.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@mem.errors.count, "error") %> prohibited this mem from being saved:</h2>
+
+      <ul>
+      <% @mem.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field">
+    <%= f.label :titulo %><br>
+    <%= f.text_field :titulo %>
+  </div>
+
+  <div class="field">
+    <label>Alumnos:</label><br>
+    <div class="row">
+      <% @alumnos.each do |alumno| %>
+        <div class="col-md-3">
+          <%= check_box_tag "alumnos[]", alumno.id %> <%= alumno.nombre %> <%= alumno.apellido %><br>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Profesor Guia:</label><br>
+    <div class="row">
+      <% @teachers.each do |teacher| %>
+        <div class="col-md-3">
+          <%= check_box_tag "teachers[]", teacher.id %> <%= teacher.nombre %> <%= teacher.apellido %><br>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!--div class="field">
+    <label>Estado:</label><br>
+    <%= collection_select( :mem, :estado_id, @estados, :id, :nombre, {}) %>
+  </div-->
+  <!--div class="field">
+    <%= f.label :fecha_memoria %><br>
+    <%= f.date_select :fecha_memoria %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha_avance %><br>
+    <%= f.date_select :fecha_avance %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha_defensa %><br>
+    <%= f.date_select :fecha_defensa %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha_limimte %><br>
+    <%= f.date_select :fecha_limimte %>
+  </div-->
+  <div class="field">
+    <label>Tópicos</label><br>
+    <div class="row">
+      <% @topicos.each do |topico| %>
+        <div class="col-md-3">
+          <%= check_box_tag "topicos[]", topico.id %> <%= topico.nombre %><br>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :resumen_ejecutivo %><br>
+    <%= f.text_area :resumen_ejecutivo %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit class:"btn btn-primary active" %>
+  </div>
+<% end %>

@@ -1,0 +1,52 @@
+rails new app_memorias -d mysql
+
+rails g scaffold Estado nombre:string dias:integer
+bundle exec rake db:migrate
+
+rails g scaffold Carrera nombre:string
+bundle exec rake db:migrate
+
+rails g devise:install
+rails g devise Alumno
+bundle exec rake db:migrate
+rails g devise:views alumnos
+
+rails g devise Teacher
+bundle exec rake db:migrate
+rails g devise:views teachers
+
+rails g devise Adminstrador
+bundle exec rake db:migrate
+rails g devise:views adminstradors
+
+rails g scaffold Mem estado:references fecha_memoria:date fecha_avance:date fecha_defensa:date fecha_limimte:date
+bundle exec rake db:migrate
+
+rails g scaffold Tipo_correccion nombre:string
+bundle exec rake db:migrate
+
+rails g scaffold Evaluacion teacher:references alumno:references nota:float
+bundle exec rake db:migrate
+
+rails g scaffold Topico nombre:string
+bundle exec rake db:migrate
+
+rails g model Topico_teacher topico:references teacher:references
+bundle exec rake db:migrate
+
+rails g model Topico_asignado mem:references teacher:references
+bundle exec rake db:migrate
+
+rails g model Corrector tipo_corector:integer teacher:references mem:references
+bundle exec rake db:migrate
+
+rails g model Memorist mem:references alumno:references
+bundle exec rake db:migrate
+
+rails g scaffold Correccion tipo_correccion:references teacher:references mem:references validez_correcion:integer ruta_correccion:text
+bundle exec rake db:migrate
+
+rails g scaffold Documentacion nombre:string validez_documentacion:integer mem:references
+bundle exec rake db:migrate
+
+

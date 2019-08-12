@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="jumbotron">
+    <!--p id="notice"><%= notice %></p-->
+
+    <h2>Lista de Documentaciones</h2>
+    <br>
+    
+    <div class="row">
+      <div class="col-md-3">
+        <span style="font-size:14px">
+          <strong>Nombre </strong>
+        </span>
+      </div>
+      <div class="col-md-1">
+        <span style="font-size:14px">
+          <strong> Validez </strong>
+        </span>
+      </div>
+      <div class="col-md-1">
+        <span style="font-size:14px">
+          <strong> Memoria </strong>
+        </span>
+      </div>
+      <div class="col-md-2">
+        <span style="font-size:14px">
+          <strong> Archivo </strong>
+        </span>
+      </div>
+      <div class="col-md-3">
+        <span style="font-size:14px">
+          <strong> Fecha </strong>
+        </span>
+      </div>
+    </div>
+
+    <hr>
+    <% @documentacions.each do |documentacion| %>
+      <div class="row">
+        <div class="col-md-3">
+          <span style="font-size:14px">
+            <%= link_to documentacion.nombre, documentacion %>
+          </span>
+        </div>
+        <div class="col-md-1">
+          <span style="font-size:14px">
+            <%= documentacion.validez_documentacion %>
+          </span>
+        </div>
+        <div class="col-md-1">
+          <span style="font-size:14px">
+            <%= documentacion.mem %>
+          </span>
+        </div>
+        <div class="col-md-2">
+        <span style="font-size:14px">
+          <%= link_to documentacion.cover_file_name, documentacion.cover.url() %>
+        </span>
+      </div>
+        <div class="col-md-3">
+          <span style="font-size:14px">
+            <%= documentacion.updated_at %>
+          </span>
+        </div>
+        <div class="col-md-1">
+          <span style="font-size:14px">
+            <%= link_to 'Editar', edit_documentacion_path(documentacion), class:"btn btn-default btn-xs" %>
+          </span>
+        </div>
+        <div >
+          <span style="font-size:14px">
+            <%= link_to 'Eliminar', documentacion, method: :delete, data: { confirm: '¿Está seguro?' }, class:"btn btn-default btn-xs" %>
+          </span>
+        </div>
+      </div>
+    <hr>
+    <% end %>
+
+    <br>
+
+    <%= link_to 'Nueva Documentación', new_documentacion_path, class:"btn btn-default btn-xs" %>
+  </div>
+</div>
+

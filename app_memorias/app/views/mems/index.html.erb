@@ -1,0 +1,483 @@
+<div class="container">
+  <div class="jumbotron">
+    <!--p id="notice"><%= notice %></p-->
+    
+    <% if administrador_signed_in? || coordinador_signed_in? || comision_signed_in? %>
+      <h2>Lista de Memorias</h2>
+      <br>
+
+        <div class="row">
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Título</strong>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Estado</strong>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Fecha Memoria</strong>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Fecha Avance</strong>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Fecha Defensa</strong>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Fecha Límite</strong>
+          </span>
+        </div>
+      </div>
+      <hr>
+      <% @mems.each do |mem| %>
+        <div class="row">
+          <div class="col-md-2">
+            <span style="font-size:14px;color:MidnightBlue">
+              <%= mem.id %>.
+              <%= link_to mem.titulo, mem %>
+            </span>
+          </div>
+          <div class="col-md-2">
+            <span style="font-size:14px">
+              <% if mem.state == "creada" %>
+                Memoria creada
+              <% elsif mem.state == "guia_asignado" %>
+                Profesor guía asignado
+              <% elsif mem.state == "formulario_validado" %>
+                Formulario validado
+              <% elsif mem.state == "aceptada" %>
+                Memoria aceptada
+              <% elsif mem.state == "avance_validado" %>
+                Avance validado
+              <% elsif mem.state == "avance_corregido" %>
+                Avance corregido
+              <% elsif mem.state == "presentacion_corregida" %>
+                Presentación corregida
+              <% elsif mem.state == "borrador_validado" %>
+                Borrador validado
+              <% elsif mem.state == "borrador_corregido" %>
+                Borrador corregido
+              <% elsif mem.state == "espera_encuesta" %>
+                En espera de encuesta
+              <% elsif mem.state == "completada" %>
+                Memoria completada
+              <% elsif mem.state == "finalizada" %>
+                Memoria finalizada
+              <% elsif mem.state == "cancelada" %>
+                Memoria cancelada
+              <% elsif mem.state == "dimitida" %>
+                Memoria en proceso de cancelación
+              <% end %>
+            </span>
+          </div>
+          <div class="col-md-2">
+            <span style="font-size:14px">
+              <%= mem.created_at %>
+            </span>
+          </div>
+          <div class="col-md-2">
+            <span style="font-size:14px">
+              <% if mem.fecha_avance.nil? %>
+                No asignada
+              <% else %>
+                <%= mem.fecha_avance %>
+              <% end %>
+            </span>
+          </div>
+          <div class="col-md-2">
+            <span style="font-size:14px">
+              <% if mem.fecha_defensa.nil? %>
+                No asignada
+              <% else %>
+                <%= mem.fecha_defensa %>
+              <% end %>
+            </span>
+          </div>
+          <div class="col-md-2">
+            <span style="font-size:14px">
+              <% if mem.fecha_limimte.nil? %>
+                No asignada
+              <% else %>
+                <%= mem.fecha_limimte %>
+              <% end %>
+            </span>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-offset-10">
+            <% if coordinador_signed_in? %>
+              <% if mem.fecha_avance.nil? && mem.state == "avance_corregido" %>
+                <span style="font-size:14px">
+                  <%= link_to 'Asignar Fecha Avance', edit_mem_path(mem), class:"btn btn-default btn-xs" %>
+                </span>
+              <% end %>
+              <% if mem.fecha_defensa.nil? && mem.state == "borrador_corregido" %>
+                <span style="font-size:14px">
+                  <%= link_to 'Asignar Fecha Defensa', edit_mem_path(mem), class:"btn btn-default btn-xs" %>
+                </span>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <hr>
+      <% end %>
+      
+      <br>
+    <% end %>
+
+    <% if alumno_signed_in? %>
+      <% @mems.each do |mem| %>
+        <% mem.alumnos.each do |alumno| %>
+          <% if current_alumno.id == alumno.id %>
+            <h2>Mi memoria</h2>
+            <br>
+              <div class="row">
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <strong>Título</strong>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <strong>Estado</strong>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <strong>Fecha Memoria</strong>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <strong>Fecha Avance</strong>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <strong>Fecha Defensa</strong>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <strong>Fecha Límite</strong>
+              </span>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-2">
+              <span style="font-size:14px;color:MidnightBlue">
+                <%= link_to mem.titulo, mem %>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+              <% if mem.state == "creada" %>
+                Memoria creada
+              <% elsif mem.state == "guia_asignado" %>
+                Profesor guía asignado
+              <% elsif mem.state == "formulario_validado" %>
+                Formulario validado
+              <% elsif mem.state == "aceptada" %>
+                Memoria aceptada
+              <% elsif mem.state == "avance_validado" %>
+                Avance validado
+              <% elsif mem.state == "avance_corregido" %>
+                Avance corregido
+              <% elsif mem.state == "presentacion_corregida" %>
+                Presentación corregida
+              <% elsif mem.state == "borrador_validado" %>
+                Borrador validado
+              <% elsif mem.state == "borrador_corregido" %>
+                Borrador corregido
+              <% elsif mem.state == "espera_encuesta" %>
+                En espera de encuesta
+              <% elsif mem.state == "completada" %>
+                Memoria completada
+              <% elsif mem.state == "finalizada" %>
+                Memoria finalizada
+              <% elsif mem.state == "cancelada" %>
+                Memoria cancelada
+              <% elsif mem.state == "dimitida" %>
+                Memoria en proceso de cancelación
+              <% end %>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <%= mem.created_at %>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <% if mem.fecha_avance.nil? %>
+                  No asignada
+                <% else %>
+                  <%= mem.fecha_avance %>
+                <% end %>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <% if mem.fecha_defensa.nil? %>
+                  No asignada
+                <% else %>
+                  <%= mem.fecha_defensa %>
+                <% end %>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <% if mem.fecha_limimte.nil? %>
+                  No asignada
+                <% else %>
+                  <%= mem.fecha_limimte %>
+                <% end %>
+              </span>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <% if mem.may_asignar_guia? || mem.may_validar_formulario? %>
+              <div class="col-md-offset-10 ">
+                <span style="font-size:14px">
+                  <%= link_to 'Editar Memoria', edit_mem_path(mem), class:"btn btn-default btn-xs" %>
+                </span>
+              </div>
+            <% end %>
+          </div>
+          <hr>
+          <br>
+
+          <% end %>
+        <% end %>
+      <% end %>
+        <%= link_to 'Nueva Memoria', new_mem_path, class:"btn btn-default btn-xs" %>
+    <% end %>
+
+    <% if teacher_signed_in? %>
+      <h2>Memorias Asociadas</h2>
+      <br>
+      <div class="row">
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Título</strong>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Estado</strong>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Fecha Memoria</strong>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Fecha Avance</strong>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Fecha Defensa</strong>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Fecha Límite</strong>
+          </span>
+        </div>
+      </div>
+      <hr>
+      <% @mems.each do |mem| %>
+          <div class="row">
+            <div class="col-md-2">
+              <span style="font-size:14px;color:MidnightBlue">
+                <%= link_to mem.titulo, mem %>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <% if mem.state == "creada" %>
+                Memoria creada
+              <% elsif mem.state == "guia_asignado" %>
+                Profesor guía asignado
+              <% elsif mem.state == "formulario_validado" %>
+                Formulario validado
+              <% elsif mem.state == "aceptada" %>
+                Memoria aceptada
+              <% elsif mem.state == "avance_validado" %>
+                Avance validado
+              <% elsif mem.state == "avance_corregido" %>
+                Avance corregido
+              <% elsif mem.state == "presentacion_corregida" %>
+                Presentación corregida
+              <% elsif mem.state == "borrador_validado" %>
+                Borrador validado
+              <% elsif mem.state == "borrador_corregido" %>
+                Borrador corregido
+              <% elsif mem.state == "espera_encuesta" %>
+                En espera de encuesta
+              <% elsif mem.state == "completada" %>
+                Memoria completada
+              <% elsif mem.state == "finalizada" %>
+                Memoria finalizada
+              <% elsif mem.state == "cancelada" %>
+                Memoria cancelada
+              <% elsif mem.state == "dimitida" %>
+                Memoria en proceso de cancelación
+              <% end %>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <%= mem.created_at %>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <% if mem.fecha_avance.nil? %>
+                  No asignada
+                <% else %>
+                  <%= mem.fecha_avance %>
+                <% end %>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <% if mem.fecha_defensa.nil? %>
+                  No asignada
+                <% else %>
+                  <%= mem.fecha_defensa %>
+                <% end %>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <% if mem.fecha_limimte.nil? %>
+                  No asignada
+                <% else %>
+                  <%= mem.fecha_limimte %>
+                <% end %>
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <% if mem.may_asignar_guia? %>
+              <div class="col-md-offset-10">
+                <span style="font-size:14px">
+                  <%= link_to 'Aceptar asignación', "/mems/#{mem.id}/asignar_guia", class:"btn btn-default btn-xs", method: :put, data: { confirm: '¿Está seguro?' } %>
+                </span>
+              </div>
+            <% end %>
+          </div>
+          <hr>
+          <br>
+      <% end %>
+        <% @correctors.each do |corrector| %>
+        <% @mems.each do |mem| %>
+        <% corrector.mem_id == mem.id %>
+        <% if corrector.tipo_corector == 2 %>
+          <div class="row">
+            <div class="col-md-2">
+              <span style="font-size:14px;color:MidnightBlue">
+                <%= link_to mem.titulo, mem %>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <% if mem.state == "creada" %>
+                Memoria creada
+              <% elsif mem.state == "guia_asignado" %>
+                Profesor guía asignado
+              <% elsif mem.state == "formulario_validado" %>
+                Formulario validado
+              <% elsif mem.state == "aceptada" %>
+                Memoria aceptada
+              <% elsif mem.state == "avance_validado" %>
+                Avance validado
+              <% elsif mem.state == "avance_corregido" %>
+                Avance corregido
+              <% elsif mem.state == "presentacion_corregida" %>
+                Presentación corregida
+              <% elsif mem.state == "borrador_validado" %>
+                Borrador validado
+              <% elsif mem.state == "borrador_corregido" %>
+                Borrador corregido
+              <% elsif mem.state == "espera_encuesta" %>
+                En espera de encuesta
+              <% elsif mem.state == "completada" %>
+                Memoria completada
+              <% elsif mem.state == "finalizada" %>
+                Memoria finalizada
+              <% elsif mem.state == "cancelada" %>
+                Memoria cancelada
+              <% elsif mem.state == "dimitida" %>
+                Memoria en proceso de cancelación
+              <% end %>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <%= mem.created_at %>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <% if mem.fecha_avance.nil? %>
+                  No asignada
+                <% else %>
+                  <%= mem.fecha_avance %>
+                <% end %>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <% if mem.fecha_defensa.nil? %>
+                  No asignada
+                <% else %>
+                  <%= mem.fecha_defensa %>
+                <% end %>
+              </span>
+            </div>
+            <div class="col-md-2">
+              <span style="font-size:14px">
+                <% if mem.fecha_limimte.nil? %>
+                  No asignada
+                <% else %>
+                  <%= mem.fecha_limimte %>
+                <% end %>
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <% if mem.may_asignar_guia? %>
+              <div class="col-md-offset-10">
+                <span style="font-size:14px">
+                  <%= link_to 'Aceptar asignación', "/mems/#{mem.id}/asignar_guia", class:"btn btn-default btn-xs", method: :put, data: { confirm: '¿Está seguro?' } %>
+                </span>
+              </div>
+            <% end %>
+          </div>
+          <hr>
+          <br>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+

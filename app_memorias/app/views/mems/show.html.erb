@@ -1,0 +1,376 @@
+<div class="container">
+  <div class="jumbotron">
+    <!--p id="notice"><%= notice %></p-->
+    
+    <h3><%= @mem.titulo %></h3>
+    <br>
+
+    <p>
+      <span style="font-size:14px">
+        <strong>Alumnos:</strong>
+      </span>
+    </p>
+    <ul>
+      <% @mem.alumnos.each do |alumno| %>
+        <li>
+          <span style="font-size:14px">
+            <%= alumno.rut %>, <%= alumno.nombre %> <%= alumno.apellido %>
+          </span>
+        </li>
+      <% end %>
+    </ul>
+    <br>
+
+    <p>
+      <span style="font-size:14px">
+        <strong>Tópicos asociados a la memoria:</strong>
+      </span>
+    </p>
+    <ul>
+      <% @mem.topicos.each do |topico| %>
+        <li>
+          <span style="font-size:14px">
+            <%= link_to topico.nombre, topico %>
+          </span>
+        </li>
+      <% end %>
+    </ul>
+    <br>
+
+    <div>
+      <% if not @mem.resumen_ejecutivo.nil? %>
+        <span style="font-size:14px">
+          <strong>Resumen Ejecutivo:</strong><br>
+          <%= @mem.resumen_ejecutivo %>
+        </span> 
+      <% end %>
+    </div>
+    <br>
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Estado:</strong>
+        <% if @mem.state == "creada" %>
+          Memoria creada
+        <% elsif @mem.state == "guia_asignado" %>
+          Profesor guía asignado
+        <% elsif @mem.state == "formulario_validado" %>
+          Formulario validado
+        <% elsif @mem.state == "aceptada" %>
+          Memoria aceptada
+        <% elsif @mem.state == "avance_validado" %>
+          Avance validado
+        <% elsif @mem.state == "avance_corregido" %>
+          Avance corregido
+        <% elsif @mem.state == "presentacion_corregida" %>
+          Presentación corregida
+        <% elsif @mem.state == "borrador_validado" %>
+          Borrador validado
+        <% elsif @mem.state == "borrador_corregido" %>
+          Borrador corregido
+        <% elsif @mem.state == "espera_encuesta" %>
+          En espera de encuesta
+        <% elsif @mem.state == "completada" %>
+          Memoria completada
+        <% elsif @mem.state == "finalizada" %>
+          Memoria finalizada
+        <% elsif @mem.state == "cancelada" %>
+          Memoria cancelada
+        <% elsif @mem.state == "dimitida" %>
+          Memoria en proceso de cancelación
+        <% end %>
+        <!--strong>Días Estado:</strong-->
+        <!-- @mem.estado.dias -->
+      </span>
+    </p>
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Fecha memoria:</strong>
+        <%= @mem.created_at %>
+      </span>
+    </p>
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Fecha avance:</strong>
+        <% if @mem.fecha_avance.nil? %>
+          No asignada
+        <% else %>
+          <%= @mem.fecha_avance %>
+        <% end %>
+      </span>
+    </p>
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Fecha defensa:</strong>
+        <% if @mem.fecha_defensa.nil? %>
+          No asignada
+        <% else %>
+          <%= @mem.fecha_defensa %>
+        <% end %>
+      </span>
+    </p>
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Fecha límite:</strong>
+        <% if @mem.fecha_limimte.nil? %>
+          No asignada
+        <% else %>
+          <%= @mem.fecha_limimte %>
+        <% end %>
+      </span>
+    </p>
+    <br>
+      <% if alumno_signed_in? && (@mem.state == "creada" || @mem.state == "guia_asignado")%>
+        <% @mem.alumnos.each do |alumno| %>
+          <% if current_alumno.id == alumno.id %>
+            <div class="row">
+              <div class="col-md-1">
+                <%= link_to 'Editar', edit_mem_path(@mem), class:"btn btn-default btn-xs" %>
+              </div>
+              <div>
+                <span style="font-size:14px">
+                  <%= link_to 'Cancelar Memoria', "/mems/#{@mem.id}/cancelar", class:"btn btn-default btn-xs", method: :put, data: { confirm: '¿Está seguro?' } %>
+                </span>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    <div>
+
+    <% if alumno_signed_in? && @mem.may_completar? %>
+        <%= link_to 'Responder Encuesta', new_evaluacion_path, class:"btn btn-default btn-xs" %>
+      <% end %>
+
+      <% if (administrador_signed_in? || comision_signed_in? || coordinador_signed_in?) && @mem.state == "cancelada" %>
+        <%= link_to 'Eliminar', @mem, method: :delete, data: { confirm: '¿Está seguro?' }, class:"btn btn-default btn-xs" %> |
+      <% end %>
+    </div>
+    
+    <% if alumno_signed_in? && (@mem.state == "creada" || @mem.state == "guia_asignado") %>
+      <hr>
+      <div>
+        <span style="font-size:16px">
+          Descarga el formulario del proceso de titulación a continuación: <br><br>
+          <strong>Formulario de Titulación: </strong>
+          <br>
+          <%= link_to 'presentacion_proyecto_de_titulacion.pdf', home_formularioTitulacion1_url %><br>
+          <%= link_to 'solicitud_inscripcion_tema.pdf', home_formularioTitulacion2_url %>
+        </span>
+      </div>
+      <hr>
+    <% end %>
+
+    <% if teacher_signed_in? %>
+      <div class="row">
+      <% if @mem.may_asignar_guia? %>
+        <div class="col-md-offset-10">
+          <span style="font-size:14px">
+            <%= link_to 'Aceptar asignación', "/mems/#{@mem.id}/asignar_guia", class:"btn btn-default btn-xs", method: :put, data: { confirm: '¿Está seguro?' } %>
+          </span>
+        </div>
+      <% end %>
+      </div>
+    <% end %>
+
+    <br>
+    <% if coordinador_signed_in? %>
+      <% if @mem.fecha_limimte.nil? %>
+        <div class="row">
+          <div class="col-md-offset-10">
+            <span style="font-size:14px">
+              <%= link_to 'Asignar Fecha Límite', edit_mem_path(@mem), class:"btn btn-default btn-xs" %>
+            </span>
+          </div>
+        </div>
+        <br><br>
+      <% end %>
+      <% if @mem.may_completar? %>
+        <div class="row">
+          <div class="col-md-offset-10">
+            <span style="font-size:14px">
+              <%= link_to 'Pasar a memoria completada', "/mems/#{@mem.id}/completar", class:"btn btn-default btn-xs", method: :put, data: { confirm: '¿Está seguro?' } %>
+            </span>
+          </div>
+        </div>
+      <%end %>
+      <% if @mem.may_finalizar? %>
+        <div class="row">
+          <div class="col-md-offset-8">
+            <span style="font-size:14px">
+              <%= link_to 'Realizar Pago a Profesores y Finalizar Memoria', "/mems/#{@mem.id}/finalizar", class:"btn btn-default btn-xs", method: :put, data: { confirm: '¿Está seguro?' } %>
+            </span>
+          </div>
+        </div>
+      <%end %>
+      <% if @mem.may_esperar_encuesta? %>
+        <div class="row">
+          <div class="col-md-offset-10">
+            <span style="font-size:14px">
+              <%= link_to 'Pasar a Esperar Encuesta', "/mems/#{@mem.id}/esperar_encuesta", class:"btn btn-default btn-xs", method: :put, data: { confirm: '¿Está seguro?' } %>
+            </span>
+          </div>
+        </div>
+      <% end %>
+      <% if @mem.fecha_avance.nil? && @mem.state == "avance_corregido" %>
+        <div class="row">
+          <div class="col-md-offset-10">
+            <span style="font-size:14px">
+              <%= link_to 'Asignar Fecha Avance', edit_mem_path(@mem), class:"btn btn-default btn-xs" %>
+            </span>
+          </div>
+        </div>
+      <% end %>
+      <% if @mem.fecha_defensa.nil? && @mem.state == "borrador_corregido" %>
+        <div class="row">
+          <div class="col-md-offset-10">
+            <span style="font-size:14px">
+              <%= link_to 'Asignar Fecha Defensa', edit_mem_path(@mem), class:"btn btn-default btn-xs" %>
+            </span>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    
+    <div class="field">
+      <h3>Documentaciones</h3>
+      <br>
+      <ul>
+        <% @mem.documentacions.each do |documentacion| %>
+          <li>
+            <%= link_to documentacion.cover_file_name, documentacion.cover.url() %> -  <%= documentacion.updated_at %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <% if (alumno_signed_in? && (@mem.state == "guia_asignado" || @mem.state == "aceptada" || @mem.state == "avance_corregido" || @mem.state =="presentacion_corregida" || @mem.state == "borrador_corregido")) %>
+      <hr>
+      <h4>Agregar Documentación</h4>
+      <br>
+      <%= render "documentacions/form" %>
+      <hr>
+      <br>
+    <% end %>
+
+     <% if (teacher_signed_in? && @mem.state == "avance_corregido")  %>
+      <hr>
+      <h4>Agregar Documentación</h4>
+      <br>
+      <%= render "documentacions/form" %>
+      <hr>
+      <br>
+    <% end %>
+    
+    <% if teacher_signed_in? %>
+      <div class="row">
+      <% if @mem.may_validar_formulario? %>
+        <div class="col-md-offset-10">
+          <span style="font-size:14px">
+            <% @mem.documentacions.each do |document| %>
+            <% if not document.nil? %>
+              <%= link_to 'Validar Formulario', "/mems/#{@mem.id}/validar_formulario", class:"btn btn-default btn-xs", method: :put, data: { confirm: '¿Está seguro?' } %>
+            <% end %>
+            <% end %>
+          </span>
+        </div>
+      <% end %>
+      <% if @mem.may_validar_avance? %>
+        <div class="col-md-offset-10">
+          <span style="font-size:14px">
+            <%= link_to 'Validar Avance', "/mems/#{@mem.id}/validar_avance", class:"btn btn-default btn-xs", method: :put, data: { confirm: '¿Está seguro?' } %>
+          </span>
+        </div>
+      <% end %>
+      <% if @mem.may_corregir_avance? %>
+        <% @mem.correccions.each do |correccion| %>
+        <% if not correccion.nil? %>
+        <div class="col-md-offset-10">
+          <span style="font-size:14px">
+            <%= link_to 'Pasar a Avance Corregido', "/mems/#{@mem.id}/corregir_avance", class:"btn btn-default btn-xs", method: :put, data: { confirm: '¿Está seguro?' } %>
+          </span>
+        </div>
+        <% end %> <% end %>
+      <% end %>
+      <% if @mem.may_corregir_presentacion? %>
+        <div class="col-md-offset-10">
+          <span style="font-size:14px">
+            <%= link_to 'Pasar a Presentación Corregida', "/mems/#{@mem.id}/corregir_presentacion", class:"btn btn-default btn-xs", method: :put, data: { confirm: '¿Está seguro?' } %>
+          </span>
+        </div>
+      <% end %>
+      <% if @mem.may_validar_borrador? %>
+        <div class="col-md-offset-10">
+          <span style="font-size:14px">
+            <%= link_to 'Validar Borrador', "/mems/#{@mem.id}/validar_borrador", class:"btn btn-default btn-xs", method: :put, data: { confirm: '¿Está seguro?' } %>
+          </span>
+        </div>
+      <% end %>
+      <% if @mem.may_corregir_borrador? %>
+        <div class="col-md-offset-10">
+          <span style="font-size:14px">
+            <%= link_to 'Pasar a Borrador Corregido', "/mems/#{@mem.id}/corregir_borrador", class:"btn btn-default btn-xs", method: :put, data: { confirm: '¿Está seguro?' } %>
+          </span>
+        </div>
+      <% end %>
+      <% if @mem.state == "dimitida" %>
+        <div class="col-md-offset-10">
+          <span style="font-size:14px">
+            <%= link_to 'Confirmar Cancelación', "/mems/#{@mem.id}/confirmar_cancelacion", class:"btn btn-default btn-xs", method: :put, data: { confirm: '¿Está seguro?' } %>
+          </span>
+        </div>
+      <% end %>
+      </div>
+    <% end %>
+
+    <% if comision_signed_in? && @mem.state == "formulario_validado" %>
+      <% if @mem.may_aceptar? %>
+        <div class="row">
+          <div class="col-md-offset-6 col-md-2">
+            <span style="font-size:14px">
+              <%= link_to 'Rechazar Formulario', "/mems/#{@mem.id}/rechazar_formulario", class:"btn btn-default btn-xs", method: :put, data: { confirm: '¿Está seguro?' } %>
+            </span>
+          </div>
+          <div class="col-md-2">
+            <span style="font-size:14px">
+              <%= link_to 'Aceptar Memoria', "/mems/#{@mem.id}/aceptar", class:"btn btn-default btn-xs", method: :put, data: { confirm: '¿Está seguro?' } %>
+            </span>
+          </div>
+          <div class="col-md-2">
+            <span style="font-size:14px">
+              <%= link_to 'Asignar Correctores', edit_mem_path(@mem) , class:"btn btn-default btn-xs" %>
+            </span>
+          </div>
+
+        </div>
+      <% end %>
+    <% end %>
+
+    <div class="field">
+
+      <h3>Correcciones</h3>
+      <br>
+      <ul>
+        <% @mem.correccions.each do |correccion| %>
+          <li>
+             <%= link_to correccion.cover_file_name, correccion.cover.url() %> - <%= correccion.ruta_correccion %> - <%= correccion.updated_at %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <% if teacher_signed_in? && ( @mem.state == "avance_validado" || @mem.state == "avance_corregido" || @mem.state == "presentacion_corregida" || @mem.state == "borrador_validado") %>
+      <hr>
+      <h4>Agregar Corrección</h4>
+      <br>
+      <%= render "correccions/form" %>
+      <hr>
+      <br>
+    <% end %>
+    <br><br>
+    <%= link_to 'Atrás', mems_path %>
+
+  </div>
+</div>

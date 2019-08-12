@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="jumbotron">
+    <!--p id="notice"><%= notice %></p-->
+    
+    <h2>Lista de Evaluaciones</h2>
+    <br>
+    <div class="row">
+      <div class="col-md-2">
+        <span style="font-size:14px">
+          <strong>Profesor</strong>
+        </span>
+      </div>
+      <div class="col-md-2">
+        <span style="font-size:14px">
+          <strong>Alumno</strong>
+        </span>
+      </div>
+      <div class="col-md-1">
+        <span style="font-size:14px">
+          <strong>Nota</strong>
+        </span>
+      </div>
+      <div class="col-md-2">
+        <span style="font-size:14px">
+          <strong>Fecha</strong>
+        </span>
+      </div>
+    </div>
+    <hr>
+    <% @evaluacions.each do |evaluacion| %>
+      <div class="row">
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <%= evaluacion.teacher.rut %>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <%= evaluacion.alumno.rut %>
+          </span>
+        </div>
+        <div class="col-md-1">
+          <span style="font-size:14px">
+            <%= link_to evaluacion.nota, evaluacion %>
+          </span>
+        </div>
+        <div class="col-md-3">
+          <span style="font-size:14px">
+            <%= evaluacion.updated_at %>
+          </span>
+        </div>
+        <div class="col-md-1">
+          <span style="font-size:14px">
+            <%= link_to 'Editar', edit_evaluacion_path(evaluacion), class:"btn btn-default btn-xs" %>
+          </span>
+        </div>
+        <div>
+          <span style="font-size:14px">
+            <%= link_to 'Eliminar', evaluacion, method: :delete, data: { confirm: '¿Está seguro?' }, class:"btn btn-default btn-xs" %>
+          </span>
+        </div>
+      </div>
+      <hr>
+    <% end %>
+    
+    <br>
+    
+    <%= link_to 'Nueva Evaluación', new_evaluacion_path, class:"btn btn-default btn-xs" %>
+  </div>
+</div>
+    

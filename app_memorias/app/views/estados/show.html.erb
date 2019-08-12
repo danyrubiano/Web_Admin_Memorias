@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="jumbotron">
+    <!--p id="notice"><%= notice %></p-->
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Nombre:</strong>
+        <%= @estado.nombre %>
+      </span>
+    </p>
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Días:</strong>
+        <%= @estado.dias %>
+      </span>
+    </p>
+    
+    <%= link_to 'Editar', edit_estado_path(@estado) %> |
+    <%= link_to 'Atrás', estados_path %>
+
+  </div>
+</div>

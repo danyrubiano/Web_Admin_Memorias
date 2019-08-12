@@ -1,0 +1,93 @@
+<div class="container">
+  <div class="jumbotron">
+    <!--p id="notice"><%= notice %></p-->
+    
+    <% if administrador_signed_in? || coordinador_signed_in?%>
+      <h2>Lista de Profesores</h2>
+      <br>
+
+        <div class="row">
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Rut</strong>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Nombre</strong>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Apellido</strong>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Email</strong>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Nota de Evaluación</strong>
+          </span>
+        </div>
+        <div>
+          <span style="font-size:14px">
+            <strong>Índice de Corrección</strong>
+          </span>
+        </div>
+      </div>
+      <hr>
+      <% @teachers.each do |teacher| %>
+        <div class="row">
+          <div class="col-md-2">
+            <span style="font-size:14px">
+              <%= teacher.rut %>
+            </span>
+          </div>
+          <div class="col-md-2">
+            <span style="font-size:14px">
+              <%= teacher.nombre %>
+            </span>
+          </div>
+          <div class="col-md-2">
+            <span style="font-size:14px">
+              <%= teacher.apellido %>
+            </span>
+          </div>
+          <div class="col-md-2">
+            <span style="font-size:14px">
+              <%= teacher.email %>
+            </span>
+          </div>
+          <div class="col-md-2 text-center">
+            <span style="font-size:14px">
+              <% @evaluacions.each do |eval| %>
+                <% if eval.teacher.id = teacher.id %>
+                  <%= eval.nota %>
+                <% end %>
+              <% end %>
+            </span>
+          </div>
+          <div class="col-md-2 text-center">
+            <span style="font-size:14px">
+              100 %
+            </span>
+          </div>
+        </div>
+        <hr>
+      <% end %>
+    <% end %>
+    <div class="text-right">
+      <span style="font-size:12px">
+        <strong>Índice de corrección : </strong>
+        correcciones_asignadas_no_nulas / correcciones_asignadas
+      </span>
+    </div>
+    <br><br>
+    <div>
+      <a href="<%= new_teacher_registration_path %>" class="btn btn-default btn-xs">Registrar Nuevo Profesor</a>
+    </div>
+  </div>
+</div>

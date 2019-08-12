@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="jumbotron">
+    <!--p id="notice"><%= notice %></p-->
+    
+    <% if administrador_signed_in? %>
+      <h2>Lista de Coordinadores</h2>
+      <br>
+
+        <div class="row">
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Rut</strong>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Nombre</strong>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Apellido</strong>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Email</strong>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <strong>Telefono</strong>
+          </span>
+        </div>
+      </div>
+      <hr>
+      <% @coordinadors.each do |coordinador| %>
+        <div class="row">
+          <div class="col-md-2">
+            <span style="font-size:14px">
+              <%= coordinador.rut %>
+            </span>
+          </div>
+          <div class="col-md-2">
+            <span style="font-size:14px">
+              <%= coordinador.nombre %>
+            </span>
+          </div>
+          <div class="col-md-2">
+            <span style="font-size:14px">
+              <%= coordinador.apellido %>
+            </span>
+          </div>
+          <div class="col-md-2">
+            <span style="font-size:14px">
+              <%= coordinador.email %>
+            </span>
+          </div>
+          <div class="col-md-2">
+            <span style="font-size:14px">
+              <%= coordinador.telefono %>
+            </span>
+          </div>
+        </div>
+        <hr>
+      <% end %>
+    <% end %>
+    <br>
+    <div>
+      <a href="<%= new_coordinador_registration_path %>" class="btn btn-default btn-xs">Registrar Nuevo Coordinador</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Web Memorias </title>
+  <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  </br></br>
+
+  <div class="container">
+    <%=image_tag "logo.png", size:"1140x165"%>
+  </div>
+  <div class="container">
+    <nav class="navbar navbar-default" data-spy="affix" data-offset-top="197" >
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="<%= root_path %>">
+            Web Memorias
+            <%=image_tag "logo2.png", size:"25x25"%>
+          </a>
+        </div>
+        <% if alumno_signed_in? %>
+          <ul class="nav navbar-nav">
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li class="active"><a href="<%= root_path %>">Home</a></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Mis Datos', "/perfil", :class => 'navbar-link', method: :get %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Mi memoria', mems_path, :class => 'navbar-link' %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <%= link_to " Salir", destroy_alumno_session_path, method: :delete, :class => "glyphicon glyphicon-log-in navbar-link", style:"font-weight: Open Sans; font-size:16px" %>
+            </li>
+          </ul>
+          
+        <% elsif teacher_signed_in? %>
+          <ul class="nav navbar-nav">
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li class="active"><a href="<%= root_path %>">Home</a></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Mis Datos', "/perfil", :class => 'navbar-link', method: :get %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Memorias Asociadas', mems_path, :class => 'navbar-link' %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <%= link_to " Salir", destroy_teacher_session_path, method: :delete, :class => "glyphicon glyphicon-log-in navbar-link", style:"font-weight: Open Sans; font-size:16px" %>
+            </li>
+          </ul>
+
+        <% elsif administrador_signed_in? %>
+          <ul class="nav navbar-nav">
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li class="active"><a href="<%= root_path %>">Home</a></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Mis Datos', "/perfil", :class => 'navbar-link', method: :get %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Memorias', mems_path, :class => 'navbar-link' %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Alumnos', "/alumns", :class => 'navbar-link', method: :get %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Profesores', "/profesores", :class => 'navbar-link', method: :get %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Coordinadores', "/coordinadores", :class => 'navbar-link', method: :get %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Comisión Docente', "/comisiones", :class => 'navbar-link', method: :get %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Tópicos', topicos_path, :class => 'navbar-link' %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <%= link_to " Salir", destroy_administrador_session_path, method: :delete, :class => "glyphicon glyphicon-log-in navbar-link", style:"font-weight: Open Sans; font-size:16px" %>
+            </li>
+          </ul>
+
+        <% elsif coordinador_signed_in? %>
+          <ul class="nav navbar-nav">
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li class="active"><a href="<%= root_path %>">Home</a></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Mis Datos', "/perfil", :class => 'navbar-link', method: :get %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Memorias', mems_path, :class => 'navbar-link' %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Tópicos', topicos_path, :class => 'navbar-link' %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Alumnos', "/alumns", :class => 'navbar-link', method: :get %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Profesores', "/profesores", :class => 'navbar-link', method: :get %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Comisión Docente', "/comisiones", :class => 'navbar-link', method: :get %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <%= link_to " Salir", destroy_coordinador_session_path, method: :delete, :class => "glyphicon glyphicon-log-in navbar-link", style:"font-weight: Open Sans; font-size:16px" %>
+            </li>
+          </ul>
+
+        <% elsif comision_signed_in? %>
+          <ul class="nav navbar-nav">
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li class="active"><a href="<%= root_path %>">Home</a></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Datos de Usuario', "/perfil", :class => 'navbar-link', method: :get %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Memorias', mems_path, :class => 'navbar-link' %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li><%= link_to 'Tópicos', topicos_path, :class => 'navbar-link' %></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <%= link_to " Salir", destroy_comision_session_path, method: :delete, :class => "glyphicon glyphicon-log-in navbar-link", style:"font-weight: Open Sans; font-size:16px" %>
+            </li>
+          </ul>
+
+        <% else %>
+          <ul class="nav navbar-nav">
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+            <li class="active"><a href="<%= root_path %>">Home</a></li>
+            <li><%=image_tag "linea.jpg", size:"2x50"%></li>
+          </ul>
+        <% end %>
+             
+        </ul>
+        <!--ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul-->
+      </div>
+    </nav>
+  </div>
+
+</head>
+
+<body style="background-color:grey">
+  <div class="container">
+    <% if notice %>
+      <p class="alert alert-success">
+        <%= notice %>
+      </p>
+    <% end %>
+    <% if alert %>
+      <p class="alert alert-danger"> 
+        <%= alert %>
+      </p>
+    <% end %>
+  </div>
+  
+
+  <%= yield %>
+
+  <br /><br />
+  
+  </div>
+  <div class="container"style="color:black">
+    <!--div class="jumbotron"-->
+      <div class="row-fluid">
+        <div class="span12">
+          <!--p>
+            <span style="font-size:14px">
+              Universidad de Santiago de Chile - Facultad de Ingeniería
+            </span>
+          </p-->
+          <div style=" background-color:#413D3D">
+            <footer>
+              <br>
+              <p class="copyright; text-center" style="color:white">
+                <span style="font-size:14px">
+                  <%=image_tag "usach.png", size:"35x45"%>
+                  <%=image_tag "logo2.png", size:"30x30"%>
+                  Copyright © 2016 Web Memorias. All Rights Reserved.
+                </span>
+              </p>
+              <br>
+            <footer>
+          </div>
+    
+          <!--p class="social_bookmarks">
+            <a href="#"><i class="social foundicon-facebook"></i> Facebook</a>
+            <a href=""><i class="social foundicon-twitter"></i> Twitter</a>
+            <a href="#"><i class="social foundicon-pinterest"></i> Pinterest</a>
+            <a href="#"><i class="social foundicon-rss"></i> Rss</a>
+          </p-->
+        </div>
+      </div>
+    <!--/div-->
+</body>
+</html>

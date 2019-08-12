@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="jumbotron">
+    <!--p id="notice"><%= notice %></p-->
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Nombre Tópico:</strong>
+        <%= @topico.nombre %>
+      </span>
+    </p>
+    <br>
+    <p>
+      <span style="font-size:14px">
+        <strong>Lista de Memorias Asociadas:</strong>
+      </span>
+    </p>
+    <hr>
+    <% @topico.mems.each do |mem| %>
+      <div>
+        <span style="font-size:14px">
+          <%= link_to mem.titulo, mem %>
+        </span>
+          <%= link_to "Ver más...", memclass:"btn btn-default btn-xs" %>
+      </div>
+      <hr>
+    <% end %>
+    <br>
+
+    
+    <%= link_to 'Editar', edit_topico_path(@topico) %> |
+    <%= link_to 'Atrás', topicos_path %>
+  </div>
+</div>

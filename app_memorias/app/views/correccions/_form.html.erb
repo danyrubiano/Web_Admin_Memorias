@@ -1,0 +1,29 @@
+<%= form_for([@mem, @correccion]) do |f| %>
+  <% if @correccion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@correccion.errors.count, "error") %> prohibited this correccion from being saved:</h2>
+
+      <ul>
+      <% @correccion.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <label>Tipo de corrección:</label><br>
+    <%= f.collection_select(:tipo_correccion_id, TipoCorreccion.all, :id, :nombre, {}) %>
+  </div>
+
+  <div>
+    <label>Archivo:</label> <%= f.file_field :cover %>
+  </div>
+
+  <div class="field"><br>
+    <label>Descripción Corrección</label><br><br>
+    <%= f.text_area :ruta_correccion %>
+  </div>
+  <div class="actions">
+    <%= f.submit class:"btn btn-primary active" %>
+  </div>
+<% end %>

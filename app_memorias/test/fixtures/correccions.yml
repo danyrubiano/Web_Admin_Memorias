@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tipo_correccion_id: 
+  teacher_id: 
+  mem_id: 
+  validez_correcion: 1
+  ruta_correccion: MyText
+
+two:
+  tipo_correccion_id: 
+  teacher_id: 
+  mem_id: 
+  validez_correcion: 1
+  ruta_correccion: MyText

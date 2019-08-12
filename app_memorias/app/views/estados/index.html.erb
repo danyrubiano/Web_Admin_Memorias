@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="jumbotron">
+    <!--p id="notice"><%= notice %></p-->
+    
+    <h2>Lista de Estados</h2>
+    <br>
+
+    <div class="row">
+      <div class="col-md-3">
+        <span style="font-size:14px">    
+          <strong>Nombre</strong>
+        </span>
+      </div>
+      <div class="col-md-1">
+        <span style="font-size:14px">
+          <strong>Días</strong>
+        </span>
+      </div>
+      <div class="col-md-1">
+        <span style="font-size:14px">
+          <strong>Fecha</strong>
+        </span>
+      </div>
+    </div>
+    <hr>
+    
+    <% @estados.each do |estado| %>
+      <div class="row">
+        <div class="col-md-3">
+          <span style="font-size:14px">    
+            <%= estado.nombre %>
+          </span>
+        </div>
+        <div class="col-md-1">
+          <span style="font-size:14px">
+            <%= estado.dias %>
+          </span>
+        </div>
+        <div class="col-md-1">
+          <span style="font-size:14px">
+            <%= estado.updated_at %>
+          </span>
+        </div>
+        <div class="col-md-1">
+          <span style="font-size:14px">
+            <%= link_to 'Editar', edit_estado_path(estado), class:"btn btn-default btn-xs" %>
+          </span>
+        </div>
+        <div>
+          <span style="font-size:14px">
+            <%= link_to 'Eliminar', estado, method: :delete, data: { confirm: '¿Está seguro?' }, class:"btn btn-default btn-xs" %>
+          </span>
+        </div>
+      </div>
+      <hr>
+    <% end %>
+    
+    <br>
+    
+    <%= link_to 'Nuevo Estado', new_estado_path, class:"btn btn-default btn-xs" %>
+  </div>
+</div>

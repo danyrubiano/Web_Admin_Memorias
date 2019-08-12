@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="jumbotron">
+    <!--p id="notice"><%= notice %></p-->
+
+    <h2>Lista de Correcciones</h2>
+    <br>
+    <div class="row">
+      <div class="col-md-2">
+        <span style="font-size:14px">
+        <strong>Tipo de corrección</strong> 
+        </span>
+      </div>
+      <div class="col-md-2">
+        <span style="font-size:14px">
+          <strong>Profesor</strong>
+        </span>
+      </div>
+      <div class="col-md-1">
+        <span style="font-size:14px">
+          <strong>Memoria</strong>
+        </span>
+      </div>
+      <div class="col-md-1">
+        <span style="font-size:14px">
+          <strong>Validez</strong>
+        </span>
+      </div>
+    </div>
+    <hr>
+
+    <% @correccions.each do |correccion| %>
+      <div class="row">
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <%= correccion.id %>
+            <%= link_to correccion.tipo_correccion, correccion %>
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span style="font-size:14px">
+            <%= correccion.teacher %>
+          </span>
+        </div>
+        <div class="col-md-1">
+          <span style="font-size:14px">
+            <%= correccion.mem %></td>
+          </span>
+        </div>
+        <div class="col-md-1">
+          <span style="font-size:14px">
+            <%= correccion.validez_correcion %>
+          </span>
+        </div>
+        <div class="col-md-1">
+          <span style="font-size:14px">
+            <%= correccion.ruta_correccion %>
+          </span>
+        </div>
+        <div class="col-md-1">
+          <span style="font-size:14px">
+            <%= link_to 'Editar', edit_correccion_path(correccion), class:"btn btn-default btn-xs" %>
+          </span>
+        </div>
+        <div>
+          <span style="font-size:14px">
+            <%= link_to 'Eliminar', correccion, method: :delete, data: { confirm: '¿Está seguro?' }, class:"btn btn-default btn-xs" %></td>
+          </span>
+        </div>
+      </div>
+      <hr>
+    <% end %>
+
+    <br>
+
+    <%= link_to 'Añadir Nueva Corrección', new_correccion_path, class:"btn btn-default btn-xs" %>
+  </div>
+</div>

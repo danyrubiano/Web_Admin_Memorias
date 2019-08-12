@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="jumbotron">
+    <p id="notice"><%= notice %></p>
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Profesor:</strong>
+        <%= @evaluacion.teacher.rut %>, <%= @evaluacion.teacher.nombre %> <%= @evaluacion.teacher.apellido %>
+      </span>
+    </p>
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Alumno:</strong>
+        <%= @evaluacion.alumno.rut %>, <%= @evaluacion.alumno.nombre %> <%= @evaluacion.alumno.apellido %>
+      </span>
+    </p>
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Nota:</strong>
+        <%= @evaluacion.nota %>
+      </span>
+    </p>
+
+    <p>
+      <span style="font-size:14px">
+        <strong>Fecha:</strong>
+        <%= @evaluacion.updated_at %>
+      </span>
+    </p>
+    
+    <%= link_to 'Editar', edit_evaluacion_path(@evaluacion) %> |
+    <%= link_to 'Atrás', evaluacions_path %>
+  </div>
+</div>

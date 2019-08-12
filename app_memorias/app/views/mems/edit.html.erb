@@ -1,0 +1,104 @@
+<div class="container">
+  <div class="jumbotron">
+
+       <%= form_for(@mem) do |f| %>
+        <% if @mem.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@mem.errors.count, "error") %> prohibited this mem from being saved:</h2>
+      
+            <ul>
+            <% @mem.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <% if coordinador_signed_in? %>
+          <% if @mem.state == "avance_corregido" %>
+            <h2>Editando Fecha Avance</h2>
+            <div class="field">
+              <%= f.label :fecha_avance %><br>
+              <%= f.date_select :fecha_avance %>
+            </div>
+            <div class="actions">
+              <%= f.submit class:"btn btn-primary active" %>
+            </div>
+          <% end %>
+          <% if @mem.fecha_limimte.nil? %>
+            <h2>Editando Fecha Límite</h2>
+            <div class="field">
+              <%= f.label :fecha_avance %><br>
+              <%= f.date_select :fecha_avance %>
+            </div>
+            <div class="actions">
+              <%= f.submit class:"btn btn-primary active" %>
+            </div>
+          <% end %>
+          <% if @mem.state == "borrador_corregido" %>
+            <h2>Editando Fecha de Defensa de Memoria</h2>
+            <div class="field">
+              <%= f.label :fecha_defensa %><br>
+              <%= f.date_select :fecha_defensa %>
+            </div>
+            <div class="actions">
+              <%= f.submit class:"btn btn-primary active" %>
+            </div>
+          <% end %>
+        <% end %>
+
+         <% if comision_signed_in? %>
+          <% if @mem.state == "formulario_validado" %>
+            <h2>Asignación de profesores correctores</h2>
+            <div class="field">
+              <label>Profesor Guia:</label><br>
+              <div class="row">
+                <% @teachers.each do |teacher| %>
+                  <div class="col-md-3">
+                    <%= check_box_tag "teachers[]", teacher.id %> <%= teacher.nombre %> <%= teacher.apellido %><br>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <div class="field">
+              <%= f.label :resumen_ejecutivo %><br>
+              <%= f.text_area :resumen_ejecutivo %>
+            </div>
+            <div class="actions">
+              <%= f.submit class:"btn btn-primary active" %>
+            </div>
+          <% end %>
+        <% end %>
+      
+        <% if alumno_signed_in? %>
+        <h2>Editando Memoria</h2>
+        <div class="field">
+          <%= f.label :titulo %><br>
+          <%= f.text_field :titulo %>
+        </div>
+
+        <div class="field">
+          <%= f.label :resumen_ejecutivo %><br>
+          <%= f.text_area :resumen_ejecutivo %>
+        </div>
+
+        <div class="field">
+          <label>Tópicos</label><br>
+          <div class="row">
+            <% @topicos.each do |topico| %>
+              <div class="col-md-3">
+                <%= check_box_tag "topicos[]", topico.id %> <%= topico.nombre %><br>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="actions">
+          <%= f.submit class:"btn btn-primary active" %>
+        </div>
+      <% end %>
+      <% end %>
+      
+    <%= link_to 'Mostrar', @mem %> |
+    <%= link_to 'Atrás', mems_path %>
+  </div>
+</div>

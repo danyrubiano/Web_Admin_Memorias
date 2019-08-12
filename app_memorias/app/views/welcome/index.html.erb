@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1>Bienvenido</h1>
+    <p>
+    	Al sistema de administración de las memorias del departamento de Ingeniería Industrial de la
+    </p>
+    <p> 
+      Universidad de Santiago de Chile.
+    </p>
+    <br>
+    <%=image_tag "usach.jpg", size:"720x400", class:"img-thumbnail img-rounded center-block"%>
+
+    <% unless administrador_signed_in? || teacher_signed_in? || alumno_signed_in? || coordinador_signed_in? || comision_signed_in?%>
+      <br><hr>
+      <div class="row tex-center">
+      	<div class="col-md-4 span4 text-center">
+      	  <a href="<%= new_alumno_session_path %>" class="btn btn-warning btn-lg btn-block" style="font-weight: bold; font-size:20px; color:White">
+      	    <span class="glyphicon glyphicon-log-in" ></span>
+      		  Login Alumnos
+      		</a>
+      	</div>
+      	<div class="col-md-4 span4 text-center">
+      	  <a href="<%= new_teacher_session_path %>" class="btn btn-warning btn-lg btn-block" style="font-weight: bold; font-size:20px; color:White">
+      	    <span class="glyphicon glyphicon-log-in" ></span>
+      		  Login Profesores
+      		</a>
+      	</div>
+      	<div class="col-md-4 span4 text-center">
+      	  <a href="<%= new_administrador_session_path %>" class="btn btn-warning btn-lg btn-block" style="font-weight: bold; font-size:20px; color:White">
+      	    <span class="glyphicon glyphicon-log-in" ></span>
+      		  Login Administrador
+      		</a>
+      	</div>
+      </div>
+      <br><hr>
+      <div class="row tex-center">
+        <div class="col-md-offset-2 col-md-4 span4 text-center">
+          <a href="<%= new_coordinador_session_path %>" class="btn btn-warning btn-lg btn-block" style="font-weight: bold; font-size:20px; color:White">
+            <span class="glyphicon glyphicon-log-in" ></span>
+            Login Coordinador
+          </a>
+        </div>
+        <div class="col-md-4 span4 text-center">
+          <a href="<%= new_comision_session_path %>" class="btn btn-warning btn-lg btn-block" style="font-weight: bold; font-size:20px; color:White">
+            <span class="glyphicon glyphicon-log-in" ></span>
+            Login Comisión
+          </a>
+        </div>
+      </div>
+      <hr>
+    <% end %>
+  </div>
+</div>

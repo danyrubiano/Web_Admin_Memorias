@@ -1,0 +1,21 @@
+<%= form_for(@tipo_correccion) do |f| %>
+  <% if @tipo_correccion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tipo_correccion.errors.count, "error") %> prohibited this tipo_correccion from being saved:</h2>
+
+      <ul>
+      <% @tipo_correccion.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nombre %><br>
+    <%= f.text_field :nombre %>
+  </div>
+  <div class="actions">
+    <%= f.submit class:"btn btn-primary active" %>
+  </div>
+<% end %>

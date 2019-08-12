@@ -1,0 +1,25 @@
+<%= form_for(@evaluacion) do |f| %>
+  <% if @evaluacion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@evaluacion.errors.count, "error") %> prohibited this evaluacion from being saved:</h2>
+
+      <ul>
+      <% @evaluacion.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <label>Profesor:</label><br>
+    <%= collection_select( :evaluacion, :teacher_id, Teacher.all, :id, :rut, {}) %>
+  </div>
+  <div class="field">
+  La evaluación realizada por el profesor ¿es acorde a las correcciones del proyecto de título?<br><br>
+    <%= f.label :nota %><br>
+    <%= f.text_field :nota %>
+  </div>
+  <div class="actions">
+    <%= f.submit class:"btn btn-primary active" %>
+  </div>
+<% end %>

@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="jumbotron">
+    <!--p id="notice"><%= notice %></p-->
+
+    <h2>Lista de Carreras</h2>
+    <hr>
+    <% @carreras.each do |carrera| %>
+      <div class="row">
+        <div class="col-md-3">
+          <span style="font-size:14px">
+            <%= carrera.id %>.
+            <%= link_to carrera.nombre, carrera %>
+          </span>
+        </div>
+        <div class="col-md-1">
+          <span style="font-size:14px; color:MidnightBlue">
+            <%= link_to 'Editar', edit_carrera_path(carrera), class:"btn btn-default btn-xs" %>
+          </span>
+        </div>
+        <div>
+          <span style="font-size:14px; color:MidnightBlue">
+            <%= link_to 'Eliminar', carrera, method: :delete, data: { confirm: '¿Está seguro?' }, class:"btn btn-default btn-xs" %>
+          </span>
+        </div>
+      </div>
+      <hr>
+    <% end %>
+    
+    <br>
+    
+    <%= link_to 'Añadir Nueva Carrera', new_carrera_path, class:"btn btn-default btn-xs"  %>
+  </div>
+</div>

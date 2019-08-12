@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="jumbotron">
+    <!--p id="notice"><%= notice %></p-->
+    
+    <h2>Lista de Tipos de Correcciones</h2>
+    <hr>
+    <% @tipo_correccions.each do |tipo_correccion| %>
+      <div class="row">    
+        <div class="col-md-3">
+          <span style="font-size:14px">
+            <%= link_to tipo_correccion.nombre, tipo_correccion %>
+          </span>
+        </div>
+        <div class="col-md-3">
+          <span style="font-size:14px">
+            <%= link_to 'Editar', edit_tipo_correccion_path(tipo_correccion), class:"btn btn-default btn-xs" %>
+          </span>
+        </div>
+        <div class="col-md-3">
+          <span style="font-size:14px">
+            <%= link_to 'Eliminar', tipo_correccion, method: :delete, data: { confirm: '¿Está seguro?' }, class:"btn btn-default btn-xs" %>
+          </span>
+        </div>
+      </div>
+      <hr>
+    <% end %>
+    
+    <br>
+    
+    <%= link_to 'New Tipo correccion', new_tipo_correccion_path, class:"btn btn-default btn-xs" %>
+  </div>
+</div>

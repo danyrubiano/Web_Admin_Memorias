@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="jumbotron">
+    <!--p id="notice"><%= notice %></p-->
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Tipo corrección:</strong>
+        <%= @correccion.tipo_correccion %>
+      </span>
+    </p>
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Profesor:</strong>
+        <%= @correccion.teacher %>
+      </span>
+    </p>
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Memoria:</strong>
+        <%= @correccion.mem %>
+      </span>
+    </p>
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Validez correción:</strong>
+        <%= @correccion.validez_correcion %>
+      </span>
+    </p>
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Ruta corrección:</strong>
+        <%= @correccion.ruta_correccion %>
+      </span>
+    </p>
+    
+    <%= link_to 'Editar', edit_correccion_path(@correccion) %> |
+    <%= link_to 'Atrás', correccions_path %>
+  </div>
+</div>

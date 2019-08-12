@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  estado_id: 
+  fecha_memoria: 2016-03-29
+  fecha_avance: 2016-03-29
+  fecha_defensa: 2016-03-29
+  fecha_limimte: 2016-03-29
+
+two:
+  estado_id: 
+  fecha_memoria: 2016-03-29
+  fecha_avance: 2016-03-29
+  fecha_defensa: 2016-03-29
+  fecha_limimte: 2016-03-29

@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="jumbotron">
+    <!--p id="notice"><%= notice %></p-->
+    
+    <h2>Lista de Tópicos</h2>
+    <hr>
+    <% @topicos.each do |topico| %>
+      <div class="row">
+        <div class="col-md-3">
+          <span style="font-size:14px">
+            <%= topico.id %>.
+            <%= link_to topico.nombre, topico %>
+          </span>
+        </div>
+        <div class="col-md-1">
+          <span style="font-size:14px">
+            <%= link_to 'Editar', edit_topico_path(topico), class:"btn btn-default btn-xs" %>
+          </span>
+        </div>
+        <!--div class="col-md-1">
+          <span style="font-size:14px">
+            <%= link_to 'Eliminar', topico, method: :delete, data: { confirm: '¿Está seguro?' }, class:"btn btn-default btn-xs" %>
+          </span>
+        </div-->
+      </div>
+      <hr>
+    <% end %>
+    
+    <br>
+    
+    <%= link_to 'Nuevo Tópico', new_topico_path, class:"btn btn-default btn-xs" %>
+  </div>
+</div>

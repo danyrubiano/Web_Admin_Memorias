@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="jumbotron">
+    <!--p id="notice"><%= notice %></p-->
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Nombre:</strong>
+        <%= @documentacion.nombre %>
+      </span>
+    </p>
+    
+    <div class="field">
+      <p>
+        <span style="font-size:14px">
+          <strong>Archivo:</strong>
+          <%= link_to @documentacion.cover_file_name, @documentacion.cover.url() %>
+        </span>
+      </p>
+    </div>
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Validez documentación:</strong>
+        <%= @documentacion.validez_documentacion %>
+      </span>
+    </p>
+    
+    <p>
+      <span style="font-size:14px">
+        <strong>Memoria:</strong>
+        <%= @documentacion.mem %>
+      </span>
+    </p>
+    
+    <%= link_to 'Editar', edit_documentacion_path(@documentacion) %> |
+    <%= link_to 'Atrás', documentacions_path %>
+  </div>
+</div>
